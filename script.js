@@ -37,8 +37,8 @@ if (hamburger && navMenu) {
 // TODO: Replace these with your actual EmailJS credentials
 // Get them from: https://dashboard.emailjs.com/
 const EMAILJS_PUBLIC_KEY = '9Ga7vLye3Tm-UpXOW';
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+const EMAILJS_SERVICE_ID = 'service_oogdrab';
+const EMAILJS_TEMPLATE_ID = 'template_ix5pp3e';
 
 // Initialize EmailJS
 (function() {
