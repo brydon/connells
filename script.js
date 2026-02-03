@@ -31,36 +31,60 @@ if (hamburger && navMenu) {
     });
 }
 
-// Contact Form Handler
+// ============================================
+// EmailJS Configuration
+// ============================================
+// TODO: Replace these with your actual EmailJS credentials
+// Get them from: https://dashboard.emailjs.com/
+const EMAILJS_PUBLIC_KEY = '9Ga7vLye3Tm-UpXOW';
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+
+// Initialize EmailJS
+(function() {
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+})();
+
+// Contact Form Handler with EmailJS
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
+        // Check if EmailJS is configured
+        if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY_HERE') {
+            alert('EmailJS is not configured yet. Please follow the setup instructions in EMAILJS_SETUP.md');
+            return;
+        }
 
-        // Create mailto link with form data
-        const email = 'teastman@connellsconstruction.ca';
-        const subject = encodeURIComponent(`New Contact Form Submission from ${data.name}`);
-        const body = encodeURIComponent(
-            `Name: ${data.name}\n` +
-            `Email: ${data.email}\n` +
-            `Phone: ${data.phone || 'Not provided'}\n` +
-            `Project Type: ${data.project || 'Not specified'}\n\n` +
-            `Message:\n${data.message}`
-        );
+        // Get the submit button
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
 
-        // Open email client
-        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
 
-        // Show success message
-        alert('Thank you for your message! Your email client will open to send your inquiry.');
-
-        // Reset form
-        contactForm.reset();
+        // Send email using EmailJS
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+            .then(function(response) {
+                // Success
+                console.log('Email sent successfully:', response);
+                alert('Thank you for your message! We will get back to you shortly.');
+                contactForm.reset();
+            }, function(error) {
+                // Error
+                console.error('Failed to send email:', error);
+                alert('Sorry, there was an error sending your message. Please try again or call us at 705-927-1323.');
+            })
+            .finally(function() {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            });
     });
 }
 

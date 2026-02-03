@@ -2,6 +2,23 @@
 
 A professional website for Connell's Construction, a hands-on excavation and site services company based in Peterborough, Ontario.
 
+## ⚠️ IMPORTANT: Contact Form Setup Required
+
+The contact form uses **EmailJS** to send emails automatically. You need to complete a quick 10-minute setup:
+
+📋 **See [EMAILJS_SETUP.md](EMAILJS_SETUP.md) for step-by-step instructions**
+
+Quick checklist:
+- [ ] Create free EmailJS account
+- [ ] Connect your email (Gmail/Outlook)
+- [ ] Create email template
+- [ ] Copy 3 keys into `script.js`
+- [ ] Test the form
+
+Until you complete this setup, the contact form will show a "not configured" message.
+
+---
+
 ## Features
 
 - **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
